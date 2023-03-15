@@ -2,6 +2,17 @@ name: 'Terraform'
 
 on:
  workflow_dispatch:
+  inputs:
+      bucket_name:
+        description: 'name of the bucket'
+        required: true
+      region_name:
+        description: 'region where bucket exists'
+        required: true
+        default: 'us-east-1'
+      key: 
+        description: 'name of file'
+        required: true
 
 jobs:
   terraform:
@@ -24,7 +35,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           
       - name: Terraform Init
-        run: terraform init -input=false
+        run: terraform init -backend-config="bucket=${{ github.event.inputs.bucket_name }}" -backend-config="key=${{ github.event.inputs.key }}" -backend-config="region=${{ github.event.inputs.region_name }}" -input=false
         
       - name: Terraform Plan
         run: terraform plan -input=false -no-color
