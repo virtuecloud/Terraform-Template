@@ -4,17 +4,17 @@ on:
   push:
     branches:
       - main
-  inputs:
-   bucket_name:
-    description: 'name of the bucket'
-    required: true
-   region_name:
-    description: 'region where bucket exists'
-    required: true
-    default: 'us-east-1'
-   key: 
-    description: 'name of file'
-    required: true
+    inputs:
+     bucket_name:
+      description: 'name of the bucket'
+      required: true
+     region_name:
+      description: 'region where bucket exists'
+      required: true
+      default: 'us-east-1'
+     key: 
+      description: 'name of file'
+      required: true
         
   pull_request:
     branches:
