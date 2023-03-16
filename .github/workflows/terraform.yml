@@ -34,15 +34,18 @@ jobs:
           aws-region: us-east-1                                    # region where you want to deploy your infra
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      
+      - name: Run Initaial setup
+        uses: virtuecloud/Composite-actions/ShellScript-Run-Action@test
+        with:
+          STATE_LOCK: false
+          STATE_BUCKET: ${{ secrets.BUCKET_NAME }}
 
       - name: Terraform Init
         uses: virtuecloud/Composite-actions/Terraform/TerraformInit@main
         with:
-          STATE_LOCK: false
-          STATE_BUCKET: ${{ secrets.BUCKET_NAME }}
-          STATE_KEY: ${{ secrets.KEY }}
-          REGION: ${{ secrets.BUCKET_REGION }}
-          ENVIRONMENT: ${{ matrix.path }}
+          FILENAME: initial_setup.sh
+          CLIENTNAME: ${{ secrets.CLIENT_NAME }}
           
       - name: Terraform Plan
         uses: virtuecloud/Composite-actions/Terraform/TerraformPlan@main
