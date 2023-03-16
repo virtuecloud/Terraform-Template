@@ -1,8 +1,9 @@
 #! /usr/bin/bash
 
-BucketName=clientname-statebackup-bucket
+Client=client_name
+BucketName=$Client-statebackup-bucket
 Region= us-east-1
-Tablename=clientname-dynamodb-statelocking
+Tablename=$Client-dynamodb-statelocking
 
 if aws s3 ls "s3://$BucketName" 2>&1 | grep -q 'NoSuchBucket'
 then
