@@ -11,7 +11,7 @@
 
 - [Introduction](#introduction)
 - [Features](#features)
-- [Inputs](#inputs)
+- [Secrets](#secrets)
 
 ## Introduction
 
@@ -28,7 +28,7 @@ Some features of this template are:
 * We have also configured the s3 backend in backend.tf for storing the state file.
 * There is .gitignore file which consists of all extensions to be ignored while pushing the code to github.
 
-## Inputs
+## Secrets
 
 * All the inputs here are stored in secrets which are configurable
 
@@ -40,6 +40,7 @@ Some features of this template are:
 |BUCKET_NAME|true| |
 |BUCKET_REGION|true| |
 |TABLE_NAME|true| |
+|ENVIRONMENT|true| |
 
 
 
