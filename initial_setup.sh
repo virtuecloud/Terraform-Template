@@ -1,9 +1,10 @@
 #! /usr/bin/bash
 
-Client=client_name
+Client=$1
 BucketName=$Client-statebackup-bucket
-Region= us-east-1
-Tablename=$Client-dynamodb-statelocking
+Region=us-east-1
+TableName=$Client-dynamodb-statelocking
+Attribute_name=LockID
 
 if aws s3 ls "s3://$BucketName" 2>&1 | grep -q 'NoSuchBucket'
 then
@@ -14,4 +15,9 @@ else
 
 fi
 
-aws dynamodb create-table --table-name $tablename --table-class STANDARD
+if aws dynamodb describe-table --table-name $TableName 2>/dev/null; then
+  echo "$TableName already exists,please create with other name"
+else 
+  echo " Creating DynamoDB table"
+  aws dynamodb create-table --table-name $TableName --attribute-definitions AttributeName=Attribute_name,AttributeType=S --key-schema AttributeName=Attribute_name,KeyType=HASH --provisioned-throughput ReadCapacityUnits=20,WriteCapacityUnits=20
+fi
