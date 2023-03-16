@@ -38,14 +38,18 @@ jobs:
       - name: Run Initaial setup
         uses: virtuecloud/Composite-actions/ShellScript-Run-Action@test
         with:
-          STATE_LOCK: false
-          STATE_BUCKET: ${{ secrets.BUCKET_NAME }}
+          FILENAME: initial_setup.sh
+          CLIENTNAME: ${{ secrets.CLIENT_NAME }} 
 
       - name: Terraform Init
         uses: virtuecloud/Composite-actions/Terraform/TerraformInit@main
         with:
-          FILENAME: initial_setup.sh
-          CLIENTNAME: ${{ secrets.CLIENT_NAME }}
+          STATE_LOCK: true
+          STATE_BUCKET: ${{ secrets.BUCKET_NAME }}
+          STATE_KEY: ${{ secrets.KEY }}
+          REGION: ${{ secrets.BUCKET_REGION }}
+          ENVIRONMENT: ${{ matrix.path }}                    
+          STATE_LOCK_TABLE: ${{ secrets.TABLE_NAME }}          
           
       - name: Terraform Plan
         uses: virtuecloud/Composite-actions/Terraform/TerraformPlan@main
