@@ -23,7 +23,7 @@ All you have to do is clone this and use by providing some inputs value which ar
 Some features of this template are:
 
 * It contains a bash file to create a S3 bucket and Dynamodb for the state locking.
-* It contains the reusable workflow for running the bash file and terraform which uses the actions.
+* It contains the workflow for running the bash file and terraform which uses the actions.
 * There are two workflows in which terraform apply runs on manual trigger and another one for init and plan runs everytime the code is pushed or merged in main branch.
 * We have also configured the s3 backend in backend.tf for storing the state file.
 * There is .gitignore file which consists of all extensions to be ignored while pushing the code to github.
