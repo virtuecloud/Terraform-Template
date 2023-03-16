@@ -28,6 +28,13 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           
+      - name: Run Initaial setup
+        uses: virtuecloud/Composite-actions/ShellScript-Run-Action@test
+        with:
+          STATE_LOCK: false
+          STATE_BUCKET: ${{ secrets.BUCKET_NAME }}
+
+          
       - name: Terraform Init
         uses: virtuecloud/Composite-actions/Terraform/TerraformInit@main
         with:
