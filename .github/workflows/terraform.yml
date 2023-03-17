@@ -36,17 +36,17 @@ jobs:
           FILENAME: initial_setup.sh
           CLIENTNAME: ${{ secrets.CLIENT_NAME }} 
         
-      # extract branch name on push request
-      - name: Extract branch name
-        if: github.event_name != 'pull_request'
-        shell: bash
-        run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
+#       # extract branch name on push request
+#       - name: Extract branch name
+#         if: github.event_name != 'pull_request'
+#         shell: bash
+#         run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/})"
+#         id: extract_branch
 
-      # extract branch name on pull request
-      - name: Print branch name
-        if: github.event_name == 'pull_request'
-        run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_HEAD_REF})"
+#       # extract branch name on pull request
+#       - name: Print branch name
+#         if: github.event_name == 'pull_request'
+#         run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_HEAD_REF})"
         
       - name: Terraform Init
         uses: virtuecloud/Composite-actions/Terraform/TerraformInit@main
@@ -55,7 +55,7 @@ jobs:
           STATE_BUCKET: ${{ secrets.BUCKET_NAME }}
           STATE_KEY: ${{ secrets.KEY }}
           REGION: ${{ secrets.BUCKET_REGION }}
-          ENVIRONMENT: $BRANCH_NAME                   
+          ENVIRONMENT: main                   
           STATE_LOCK_TABLE: ${{ secrets.TABLE_NAME }}          
           
       - name: Terraform Plan
