@@ -32,18 +32,11 @@ jobs:
         uses: virtuecloud/Composite-actions/ShellScript-Run-Action@test
         with:
           FILENAME: initial_setup.sh
-        
-#       # extract branch name on push request
-#       - name: Extract branch name
-#         if: github.event_name != 'pull_request'
-#         shell: bash
-#         run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/})"
-#         id: extract_branch
-
-#       # extract branch name on pull request
-#       - name: Print branch name
-#         if: github.event_name == 'pull_request'
-#         run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_HEAD_REF})"
+          
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >>$GITHUB_OUTPUT
+        id: extract_branch
         
       - name: Terraform Init
         uses: virtuecloud/Composite-actions/Terraform/TerraformInit@main
@@ -52,7 +45,7 @@ jobs:
           STATE_BUCKET: ${{ env.BUCKET_NAME }}
           STATE_KEY: ${{ secrets.KEY }}
           REGION: ${{ env.REGION_NAME }}
-          ENVIRONMENT: main                   
+          ENVIRONMENT: ${{ steps.extract_branch.outputs.branch }}           
           STATE_LOCK_TABLE: ${{ env.TABLE_NAME }}          
           
       - name: Terraform Plan
