@@ -5,6 +5,10 @@ Region=$REGION_NAME
 TableName=$TABLE_NAME
 Attribute_name=LockID
 
+echo $BucketName
+echo $Region
+echo $TableName
+
 if aws s3 ls "s3://$BucketName" 2>&1 | grep -q 'NoSuchBucket'
 then
     aws s3api  create-bucket --bucket $BucketName --region $Region
