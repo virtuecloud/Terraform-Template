@@ -35,11 +35,9 @@ Some features of this template are:
 |---------|----------|---------|-------------|
 |AWS_ACCESS_KEY_ID|true| |For accessing AWS console|
 |AWS_SECRET_ACCESS_KEY|true| |For accessing AWS console|
-|BUCKET_NAME|true| |Name of the bucket getting created for backend.
-Provide a name with tfstate suffix to it so that it can be easily recognized as a statebucket|
+|BUCKET_NAME|true| |Name of the bucket getting created for backend.Provide a name with tfstate suffix to it so that it can be easily recognized as a statebucket|
 |AWS_REGION|true| |AWS region to deploy your app|
-|TABLE_NAME|true| |Dynamodb Table Name for state locking
-Provide a name with tfstate suffix so that it can be easily recognized|
+|TABLE_NAME|true| |Dynamodb Table Name for state locking Provide a name with tfstate suffix so that it can be easily recognized|
 
 
 
