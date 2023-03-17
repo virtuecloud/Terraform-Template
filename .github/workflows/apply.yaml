@@ -29,10 +29,10 @@ jobs:
           FILENAME: initial_setup.sh
           CLIENTNAME: ${{ secrets.CLIENT_NAME }} 
           
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
+#       - name: Extract branch name
+#         shell: bash
+#         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+#         id: extract_branch
           
       - name: Terraform Init
         uses: virtuecloud/Composite-actions/Terraform/TerraformInit@main
@@ -41,7 +41,7 @@ jobs:
           STATE_BUCKET: ${{ secrets.BUCKET_NAME }}
           STATE_KEY: ${{ secrets.KEY }}
           REGION: ${{ secrets.BUCKET_REGION }}
-          ENVIRONMENT: ${BRANCH_NAME}
+          ENVIRONMENT: dev
           STATE_LOCK_TABLE: ${{ secrets.TABLE_NAME }}          
           
       - name: Terraform Plan
