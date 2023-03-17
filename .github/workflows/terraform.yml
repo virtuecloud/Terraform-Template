@@ -37,7 +37,6 @@ jobs:
         uses: virtuecloud/Composite-actions/ShellScript-Run-Action@test
         with:
           FILENAME: initial_setup.sh
-          CLIENTNAME: ${{ secrets.CLIENT_NAME }} 
         
 #       # extract branch name on push request
 #       - name: Extract branch name
