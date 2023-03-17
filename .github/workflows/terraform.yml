@@ -47,7 +47,6 @@ jobs:
       - name: Terraform Init
         uses: virtuecloud/Composite-actions/Terraform/TerraformInit@main
         with:
-          STATE_LOCK: true
           STATE_BUCKET: ${{ env.BUCKET_NAME }}
           STATE_KEY: ${{ secrets.KEY }}
           REGION: ${{ env.REGION_NAME }}
