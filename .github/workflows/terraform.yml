@@ -12,7 +12,7 @@ on:
 env:
   BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
   TABLE_NAME: ${{ secrets.TABLE_NAME }}
-  REGION_NAME: ${{ secrets.REGION_NAME }}
+  REGION_NAME: ${{ secrets.BUCKET_REGION }}
   
 jobs:
   terraform:
@@ -57,7 +57,7 @@ jobs:
 #         STATE_LOCK: true
           STATE_BUCKET: ${{ env.BUCKET_NAME }}
           STATE_KEY: ${{ secrets.KEY }}
-          REGION: ${{ secrets.BUCKET_REGION }}
+          REGION: ${{ env.REGION_NAME }}
           ENVIRONMENT: main                   
           STATE_LOCK_TABLE: ${{ env.TABLE_NAME }}    
           
