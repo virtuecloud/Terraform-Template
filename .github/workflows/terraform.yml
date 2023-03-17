@@ -56,5 +56,3 @@ jobs:
           
       - name: Terraform Plan
         uses: virtuecloud/Composite-actions/Terraform/TerraformPlan@main
-
-
