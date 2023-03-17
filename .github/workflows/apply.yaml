@@ -3,6 +3,11 @@ name: 'Apply'
 on:
  workflow_dispatch:
 
+env:
+  BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+  TABLE_NAME: ${{ secrets.TABLE_NAME }}
+  REGION_NAME: ${{ secrets.BUCKET_REGION }}
+  
 jobs:
   terraform:
     name: terraform-runner
@@ -19,30 +24,36 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-region: us-east-1                                    # region where you want to deploy your infra
+          aws-region: ${{ env.REGION_NAME }}                                  # region where you want to deploy your infra
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          
+      
       - name: Run Initaial setup
         uses: virtuecloud/Composite-actions/ShellScript-Run-Action@test
         with:
           FILENAME: initial_setup.sh
-          CLIENTNAME: ${{ secrets.CLIENT_NAME }} 
-          
+        
+#       # extract branch name on push request
 #       - name: Extract branch name
+#         if: github.event_name != 'pull_request'
 #         shell: bash
-#         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+#         run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/})"
 #         id: extract_branch
-          
+
+#       # extract branch name on pull request
+#       - name: Print branch name
+#         if: github.event_name == 'pull_request'
+#         run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_HEAD_REF})"
+        
       - name: Terraform Init
         uses: virtuecloud/Composite-actions/Terraform/TerraformInit@main
         with:
           STATE_LOCK: true
-          STATE_BUCKET: ${{ secrets.BUCKET_NAME }}
+          STATE_BUCKET: ${{ env.BUCKET_NAME }}
           STATE_KEY: ${{ secrets.KEY }}
-          REGION: ${{ secrets.BUCKET_REGION }}
-          ENVIRONMENT: dev
-          STATE_LOCK_TABLE: ${{ secrets.TABLE_NAME }}          
+          REGION: ${{ env.REGION_NAME }}
+          ENVIRONMENT: main                   
+          STATE_LOCK_TABLE: ${{ env.TABLE_NAME }}          
           
       - name: Terraform Plan
         uses: virtuecloud/Composite-actions/Terraform/TerraformPlan@main
