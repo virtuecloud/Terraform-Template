@@ -24,7 +24,7 @@ Some features of this template are:
 * It contains a bash file to create a S3 bucket and Dynamodb for the state locking in which the names of both are stored in secrets and secrets are used in envs and this env are called in bash file.
 * It contains the workflow for running the bash file and terraform which uses the actions.
 * There are two workflows in which terraform apply runs on manual trigger and another one for init and plan runs everytime the code is pushed or merged in main branch.
-* While running Terraform init a new Terraform workspace is create whose name is given by Environment variable whose value is the branch name.
+* A new Terraform workspace is created whose name is given by Environment variable whose value is the branch name.
 * We have also configured the s3 backend in backend.tf for storing the state file.
 * There is .gitignore file which consists of all extensions to be ignored while pushing the code to github.
 
