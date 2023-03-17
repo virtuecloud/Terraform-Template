@@ -12,6 +12,7 @@ on:
 env:
   BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
   TABLE_NAME: ${{ secrets.TABLE_NAME }}
+  REGION_NAME: ${{ secrets.REGION_NAME }}
   
 jobs:
   terraform:
@@ -29,7 +30,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-region: us-east-1                                    # region where you want to deploy your infra
+          aws-region: ${{ env.REGION_NAME }}                                  # region where you want to deploy your infra
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       
@@ -53,12 +54,12 @@ jobs:
       - name: Terraform Init
         uses: virtuecloud/Composite-actions/Terraform/TerraformInit@main
         with:
-#           STATE_LOCK: true
-          STATE_BUCKET: $BUCKET_NAME
+#         STATE_LOCK: true
+          STATE_BUCKET: ${{ env.BUCKET_NAME }}
           STATE_KEY: ${{ secrets.KEY }}
           REGION: ${{ secrets.BUCKET_REGION }}
           ENVIRONMENT: main                   
-          STATE_LOCK_TABLE: $TABLE_NAME       
+          STATE_LOCK_TABLE: ${{ env.TABLE_NAME }}    
           
       - name: Terraform Plan
         uses: virtuecloud/Composite-actions/Terraform/TerraformPlan@main
