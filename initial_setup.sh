@@ -18,5 +18,5 @@ if aws dynamodb describe-table --table-name $TableName 2>/dev/null; then
   echo "$TableName already exists,please create with other name"
 else 
   echo " Creating DynamoDB table"
-  aws dynamodb create-table --table-name $TableName --attribute-definitions AttributeName=$Attribute_name,AttributeType=S --key-schema AttributeName=Attribute_name,KeyType=HASH --provisioned-throughput ReadCapacityUnits=20,WriteCapacityUnits=20
+  aws dynamodb create-table --table-name $TableName --attribute-definitions AttributeName=$Attribute_name,AttributeType=S --key-schema AttributeName=$Attribute_name,KeyType=HASH --provisioned-throughput ReadCapacityUnits=20,WriteCapacityUnits=20
 fi
