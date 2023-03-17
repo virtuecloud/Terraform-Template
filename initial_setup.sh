@@ -1,7 +1,7 @@
 #! /usr/bin/bash
 
 BucketName=$BUCKET_NAME
-Region=us-east-1
+Region=$REGION_NAME
 TableName=$TABLE_NAME
 Attribute_name=LockID
 
