@@ -1,9 +1,8 @@
 #! /usr/bin/bash
 
-Client=$1
-BucketName=$Client-statebackup-bucket
+BucketName=$BUCKET_NAME
 Region=us-east-1
-TableName=$Client-dynamodb-statelocking
+TableName=$TABLE_NAME
 Attribute_name=LockID
 
 if aws s3 ls "s3://$BucketName" 2>&1 | grep -q 'NoSuchBucket'
