@@ -7,11 +7,6 @@ jobs:
   terraform:
     name: terraform-runner
     runs-on: ubuntu-20.04
-    strategy:
-      fail-fast: false
-      matrix:
-        path:
-          - dev
     steps:
       - name: Check out code
         uses: actions/checkout@v2
@@ -33,7 +28,11 @@ jobs:
         with:
           FILENAME: initial_setup.sh
           CLIENTNAME: ${{ secrets.CLIENT_NAME }} 
-
+          
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
           
       - name: Terraform Init
         uses: virtuecloud/Composite-actions/Terraform/TerraformInit@main
@@ -42,7 +41,7 @@ jobs:
           STATE_BUCKET: ${{ secrets.BUCKET_NAME }}
           STATE_KEY: ${{ secrets.KEY }}
           REGION: ${{ secrets.BUCKET_REGION }}
-          ENVIRONMENT: ${{ matrix.path }}
+          ENVIRONMENT: ${BRANCH_NAME}
           STATE_LOCK_TABLE: ${{ secrets.TABLE_NAME }}          
           
       - name: Terraform Plan
