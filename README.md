@@ -16,13 +16,12 @@
 ## Introduction
 
 This is a template for the complete Initial Terraform setup for a Project to start.
-All you have to do is clone this and use by providing some inputs value which are needed.
 
 ## Features
 
 Some features of this template are:
 
-* It contains a bash file to create a S3 bucket and Dynamodb for the state locking.
+* It contains a bash file to create a S3 bucket and Dynamodb for the state locking in which the names of both are stored in secrets and secrets are used in envs and this env are called in bash file.
 * It contains the workflow for running the bash file and terraform which uses the actions.
 * There are two workflows in which terraform apply runs on manual trigger and another one for init and plan runs everytime the code is pushed or merged in main branch.
 * We have also configured the s3 backend in backend.tf for storing the state file.
@@ -32,15 +31,14 @@ Some features of this template are:
 
 * All the inputs here are stored in secrets which are configurable
 
-| Inputs  | Required | Default |
-|---------|----------|---------|
-|AWS_ACCESS_KEY_ID|true| |
-|AWS_SECRET_ACCESS_KEY|true| |
-|CLIENT_NAME|true| |
-|BUCKET_NAME|true| |
-|BUCKET_REGION|true| |
-|TABLE_NAME|true| |
-|ENVIRONMENT|true| |
+| Inputs  | Required | Default | Description |
+|---------|----------|---------|-------------|
+|AWS_ACCESS_KEY_ID|true| |For accessing AWS console|
+|AWS_SECRET_ACCESS_KEY|true| |For accessing AWS console|
+|BUCKET_NAME|true| |Name of the bucket getting created for backend|
+|AWS_REGION|true| |AWS region to deploy your app|
+|TABLE_NAME|true| |State lock Table Name|
+
 
 
 

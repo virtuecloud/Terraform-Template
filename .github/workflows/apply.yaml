@@ -6,7 +6,7 @@ on:
 env:
   BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
   TABLE_NAME: ${{ secrets.TABLE_NAME }}
-  REGION_NAME: ${{ secrets.BUCKET_REGION }}
+  REGION_NAME: ${{ secrets.AWS_REGION }}
   
 jobs:
   terraform:
