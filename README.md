@@ -35,7 +35,7 @@ Some features of this template are:
 |---------|----------|---------|-------------|
 |AWS_ACCESS_KEY_ID|true| |For accessing AWS console|
 |AWS_SECRET_ACCESS_KEY|true| |For accessing AWS console|
-|BUCKET_NAME|true| |Name of the bucket getting created for backend|
+|BUCKET_NAME|true| |Name of the bucket getting created for backend.Provide a name and add statebucket suffix to it so that it can be easily identifiedws|
 |AWS_REGION|true| |AWS region to deploy your app|
 |TABLE_NAME|true| |State lock Table Name|
 
