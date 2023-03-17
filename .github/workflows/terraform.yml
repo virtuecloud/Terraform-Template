@@ -38,6 +38,12 @@ jobs:
         uses: virtuecloud/Composite-actions/ShellScript-Run-Action@test
         with:
           FILENAME: initial_setup.sh
+          
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >>$GITHUB_OUTPUT
+        id: extract_branch
+    
         
 #       # extract branch name on push request
 #       - name: Extract branch name
@@ -58,7 +64,7 @@ jobs:
           STATE_BUCKET: ${{ env.BUCKET_NAME }}
           STATE_KEY: ${{ secrets.KEY }}
           REGION: ${{ env.REGION_NAME }}
-          ENVIRONMENT: main                   
+          ENVIRONMENT: ${{ steps.extract_branch.outputs.branch }}             
           STATE_LOCK_TABLE: ${{ env.TABLE_NAME }}    
           
       - name: Terraform Plan
