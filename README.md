@@ -44,7 +44,7 @@ Some features of this template are:
 ## Usage
 
 ```yaml
-  - name: Run Initaial setup
+      - name: Run Initaial setup
         uses: virtuecloud/Composite-actions/ShellScript-Run-Action@test
         with:
           FILENAME: initial_setup.sh
